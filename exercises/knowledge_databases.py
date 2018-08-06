@@ -2,27 +2,55 @@ from knowledge_model import Base, Knowledge
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
+import random
 engine = create_engine('sqlite:///knowledge.db')
 Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-article = Knowledge(article_id = 1, article_name = "whales", article_topic = "whales", article_rating = 3)
-print(repr(article))
-def add_article():
-	pass
+
+
+
+
+
+
+def add_article(name,topic,rating):
+	new_article = Knowledge( 
+		article_name = name, 
+		article_topic = topic, 
+		article_rating = int(rating))
+
+	print(repr(new_article))
+	session.add(new_article)
+	session.commit()
+
+
+# name=input("enter a name \n")
+# topic=input("enter a topic \n")
+# rate=input("enter a rate: \n")
+# add_article(name,topic,rate)
 
 def query_all_articles():
-	pass
+   student = session.query(Knowledge).all()
+   return student
+# print(query_all_articles())
 
-def query_article_by_topic():
-	pass
+def query_article_by_topic(topic):
+   student = session.query(Knowledge).filter_by(article_topic = topic).all()
+   return student
+# print(query_article_by_topic("birds"))
 
-def delete_article_by_topic():
-	pass
+def delete_article_by_topic(topic):
+   session.query(Knowledge).filter_by(article_topic = topic).delete()
+   session.commit()
+# delete_article_by_topic("birds")
 
 def delete_all_articles():
-	pass
+	session.query(Knowledge).delete()
+	session.commit()
+# delete_all_articles()
+print(query_all_articles())
 
-def edit_article_rating():
-	pass
+def edit_article_rating(name,rate):
+	# editting using filters
+
+
