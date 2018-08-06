@@ -7,7 +7,7 @@ engine = create_engine('sqlite:///knowledge.db')
 Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
-article = Knowledge(article_name = "whales", article_topic = "whales", article_rating = 8)
+article = Knowledge(article_id = 1, article_name = "whales", article_topic = "whales", article_rating = 3)
 print(repr(article))
 def add_article():
 	pass
